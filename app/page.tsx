@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Center, Divider, Title } from '@mantine/core';
+import { Avatar, Center, Divider, Group, Title } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
+import { IconFileDescription } from '@tabler/icons-react';
 
 import { DraftsTable } from '@/components/DraftsTable';
 import axiosInstance from '@/lib/axios';
@@ -17,8 +18,8 @@ export default function HomePage() {
   const fetchDrafts = async (params?: any): Promise<IResponse<ILaw>> => {
     const res = await axiosInstance.get('/raw', {
       params: {
-        searchBy: 'state',
-        search: params.state,
+        // searchBy: 'state',
+        // search: params.state,
       },
     });
     return res.data;
@@ -40,8 +41,13 @@ export default function HomePage() {
     <>
       <Welcome handleCLick={handleSelectState} />
       <Divider my={36} />
-      <Center>
-        <Title>{STATE_LABEL[currentState]}</Title>
+      <Center mb={18} pb={16}>
+        <Group align="center">
+          <Avatar size={40} radius={40} src={null} color="main-red" variant="filled">
+            <IconFileDescription />
+          </Avatar>
+          <Title>{STATE_LABEL[currentState]}</Title>
+        </Group>
       </Center>
       <DraftsTable data={data?.payload || []} />
     </>
