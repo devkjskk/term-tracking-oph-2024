@@ -19,7 +19,7 @@ interface DraftsTableProps {
 const DraftsTable = ({ data }: DraftsTableProps) => {
   const router = useRouter();
 
-  const handleNavigation = (id: number, state: string) => {
+  const handleNavigation = (id: string, state: string) => {
     router.push(`/drafts/${id}/${state}`);
   };
 
@@ -44,7 +44,7 @@ const DraftsTable = ({ data }: DraftsTableProps) => {
       <Table.Td>
         <ActionIcon
           variant="subtle"
-          onClick={() => handleNavigation(Number(row.id), row.state)}
+          onClick={() => handleNavigation(row.id, row.state)}
           color="main-red"
         >
           <IconChevronRight />

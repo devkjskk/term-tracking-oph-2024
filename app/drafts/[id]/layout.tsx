@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   ActionIcon,
@@ -10,53 +10,45 @@ import {
   Divider,
   Grid,
   Group,
+  ScrollArea,
   Stack,
-  Text,
   Title,
 } from '@mantine/core';
 import {
   IconChevronLeft,
   IconDots,
-  IconDotsVertical,
   IconEye,
+  IconFileDescription,
   IconMail,
 } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
 import { Timeline } from '@/components';
 import axiosInstance from '@/lib/axios';
+import { STATE_INDEX } from '@/constants';
 
 const DraftDetailLayouts = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { id } = useParams() as { id: string };
 
-  const [currentState, setCurrentState] = React.useState(3);
-  const [selectedState, setSelectedState] = React.useState(3);
-  const maxState = 3;
+  const [selectedState, setSelectedState] = React.useState('');
 
-  const fetchDraftDetail = async (draftId: number) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          id: 1,
-          title: 'รอการตรวจสอบรายชื่อ',
-          description: 'You’ve created new branch',
-          state: 'listening_to_comments',
-          date: '3 months ago',
-        });
-      }, 1000);
-    });
-    const res = await axiosInstance.get(`/drafts/${draftId}`);
-    return res.data;
+  const fetchLawDetail = async () => {
+    const res = await axiosInstance.get(`/raw/${id}`);
+    return res.data.payload;
   };
 
-  const { data, isError } = useQuery({
+  const { data: lawDetail, isError } = useQuery({
     queryKey: ['drafts', id],
-    queryFn: () => fetchDraftDetail(Number(id)),
+    queryFn: () => fetchLawDetail(),
   });
 
-  const handleClickItem = (index: number) => {
-    setSelectedState(index);
+  useEffect(() => {
+    if (!isError && !!lawDetail) setSelectedState(lawDetail?.state);
+  }, [isError, lawDetail]);
+
+  const handleClickItem = (newState: string) => {
+    setSelectedState(newState);
   };
 
   const handleBack = () => {
@@ -79,11 +71,53 @@ const DraftDetailLayouts = ({ children }: { children: React.ReactNode }) => {
           </Button>
         </Group>
         <Title order={2} mb={16}>
-          ร่างพระราชบัญญัติยกเลิกคำสั่งหัวหน้าคณะรักษาความสงบแห่งชาติ ที่ 16/2560 เรื่อง
-          การบริหารงานบุคคลของข้าราชการครูและบุคลากรทางการศึกษา ลงวันที่ 21 มีนาคม พุทธศักราช 2560
-          พ.ศ. ....
+          {lawDetail?.name}
         </Title>
-        <Group justify="end">
+        <Group justify="space-between">
+          <Group gap="xs">
+            <Button
+              size="compact-xs"
+              color="grey"
+              leftSection={<IconFileDescription size={16} />}
+              onClick={() => {
+                window.open(
+                  'https://www.parliament.go.th/section77/manage/files/file_20230911125054_1_292.pdf',
+                  '_blank',
+                  'noopener,noreferrer'
+                );
+              }}
+            >
+              ร่างพระราชบัญญัติ
+            </Button>
+            <Button
+              size="compact-xs"
+              color="grey"
+              leftSection={<IconFileDescription size={16} />}
+              onClick={() => {
+                window.open(
+                  'https://www.parliament.go.th/section77/manage/files/file_20231121145230_2_292.pdf',
+                  '_blank',
+                  'noopener,noreferrer'
+                );
+              }}
+            >
+              เอกสารประกอบ
+            </Button>
+            <Button
+              size="compact-xs"
+              color="grey"
+              leftSection={<IconFileDescription size={16} />}
+              onClick={() => {
+                window.open(
+                  'https://www.parliament.go.th/section77/manage/files/file_20231121145230_2_292.pdf',
+                  '_blank',
+                  'noopener,noreferrer'
+                );
+              }}
+            >
+              รายงานสรุปความคิดเห็น
+            </Button>
+          </Group>
           <Group gap="xs">
             <Button
               size="compact-xs"
@@ -107,13 +141,16 @@ const DraftDetailLayouts = ({ children }: { children: React.ReactNode }) => {
         <Grid px="lg">
           <Grid.Col span={3} pt={32} style={{ borderRight: '1px solid lightgray' }}>
             <Timeline
-              currentState={currentState}
-              selectedState={selectedState}
+              currentState={STATE_INDEX[lawDetail?.state || 0]}
+              selectedState={STATE_INDEX[selectedState || 0]}
               handleClickItem={handleClickItem}
-              maxState={maxState}
+              maxState={STATE_INDEX[lawDetail?.state || 0]}
+              stateLogs={lawDetail?.stateLogs}
             />
           </Grid.Col>
-          <Grid.Col span={9}>{children}</Grid.Col>
+          <Grid.Col span={9}>
+            <ScrollArea>{children}</ScrollArea>
+          </Grid.Col>
         </Grid>
       </Box>
     </Container>

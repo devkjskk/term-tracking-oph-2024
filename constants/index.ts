@@ -1,31 +1,38 @@
 export const STATE_COLORS: Record<string, string> = {
   reviewing_list: 'main-red',
   listening_to_comments: 'cyan',
-  awaiting_prime_minister_review: 'pink',
-  awaiting_agenda_1: 'blue',
-  agenda_1_scheduled: 'green',
-  awaiting_agenda_2: 'blue',
-  committee_agenda_2: 'orange',
-  awaiting_meeting_agenda_2: 'blue',
+  comments_completed: 'light-cyan', // Added new state
+  prime_minister_review: 'pink', // Adjusted state name
+  awaiting_agenda_inclusion: 'blue', // Adjusted state name
+  meeting_agenda_1: 'green', // Added new state
   meeting_agenda_2: 'green',
-  awaiting_meeting_agenda_3: 'blue',
   meeting_agenda_3: 'green',
-  agenda_3_approved: 'green',
+  sent_to_senate_for_review: 'orange', // Added new state
   rejected: 'main-red',
 };
 
 export const STATE_LABEL: Record<string, string> = {
   reviewing_list: 'ตรวจสอบรายชื่อ',
   listening_to_comments: 'กำลังรับฟังความเห็น',
-  awaiting_prime_minister_review: 'รอนายกฯตรวจสอบ',
-  awaiting_agenda_1: 'รอบรรจุวาระ 1',
-  agenda_1_scheduled: 'บรรจุวาระที่ 1',
-  awaiting_agenda_2: 'รอบรรจุวาระที่ 2',
-  committee_agenda_2: 'กรรมาธิการ (วาระ2)',
-  awaiting_meeting_agenda_2: 'รอประชุมวาระที่ 2',
+  comments_completed: 'รับฟังความเห็นเสร็จสิ้น', // Added new state
+  prime_minister_review: 'นายกตรวจสอบ ร่างการเงิน', // Adjusted state name
+  awaiting_agenda_inclusion: 'บรรจุระเบียบวาระการประชุม', // Adjusted state name
+  meeting_agenda_1: 'ประชุมวาระ 1', // Added new state
   meeting_agenda_2: 'ประชุมวาระ 2',
-  awaiting_meeting_agenda_3: 'รอประชุมวาระที่ 3',
   meeting_agenda_3: 'ประชุมวาระ 3',
-  agenda_3_approved: 'วาระ 3 เห็นชอบ',
+  sent_to_senate_for_review: 'ส่งวุฒิสภาพิจารณาต่อ', // Added new state
   rejected: 'ปัดตก',
+};
+
+export const STATE_INDEX: Record<string, number> = {
+  reviewing_list: 0,
+  listening_to_comments: 1,
+  comments_completed: 2,
+  prime_minister_review: 3,
+  awaiting_agenda_inclusion: 4,
+  meeting_agenda_1: 5,
+  meeting_agenda_2: 6,
+  meeting_agenda_3: 7,
+  sent_to_senate_for_review: 8,
+  rejected: 9,
 };
