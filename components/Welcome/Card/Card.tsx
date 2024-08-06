@@ -1,9 +1,6 @@
 'use client';
 
-// import { Title, Text, Grid } from '@mantine/core';
-
 import classes from './Card.module.css';
-// import { useSetState } from '@mantine/hooks';
 
 export function Card(props: any) {
   const {
