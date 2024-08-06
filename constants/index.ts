@@ -1,0 +1,31 @@
+export const STATE_COLORS: Record<string, string> = {
+  reviewing_list: 'main-red',
+  listening_to_comments: 'cyan',
+  awaiting_prime_minister_review: 'pink',
+  awaiting_agenda_1: 'blue',
+  agenda_1_scheduled: 'green',
+  awaiting_agenda_2: 'blue',
+  committee_agenda_2: 'orange',
+  awaiting_meeting_agenda_2: 'blue',
+  meeting_agenda_2: 'green',
+  awaiting_meeting_agenda_3: 'blue',
+  meeting_agenda_3: 'green',
+  agenda_3_approved: 'green',
+  rejected: 'main-red',
+};
+
+export const STATE_LABEL: Record<string, string> = {
+  reviewing_list: 'ตรวจสอบรายชื่อ',
+  listening_to_comments: 'กำลังรับฟังความเห็น',
+  awaiting_prime_minister_review: 'รอนายกฯตรวจสอบ',
+  awaiting_agenda_1: 'รอบรรจุวาระ 1',
+  agenda_1_scheduled: 'บรรจุวาระที่ 1',
+  awaiting_agenda_2: 'รอบรรจุวาระที่ 2',
+  committee_agenda_2: 'กรรมาธิการ (วาระ2)',
+  awaiting_meeting_agenda_2: 'รอประชุมวาระที่ 2',
+  meeting_agenda_2: 'ประชุมวาระ 2',
+  awaiting_meeting_agenda_3: 'รอประชุมวาระที่ 3',
+  meeting_agenda_3: 'ประชุมวาระ 3',
+  agenda_3_approved: 'วาระ 3 เห็นชอบ',
+  rejected: 'ปัดตก',
+};

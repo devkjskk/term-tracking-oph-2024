@@ -15,7 +15,11 @@ import classes from './Welcome.module.css';
 // import { useSetState } from '@mantine/hooks';
 import { Card } from './Card/Card';
 
-export function Welcome() {
+interface WelcomeProps {
+  handleCLick: (state: string) => void;
+}
+
+export function Welcome({ handleCLick }: WelcomeProps) {
   return (
     <div className={classes.bgWelCome}>
       <Title className={classes.title} ta="center" mt={50}>
@@ -44,6 +48,7 @@ export function Welcome() {
                 }}
               />
             }
+            onClick={() => handleCLick('reviewing_list')}
           />
           <div
             style={{
