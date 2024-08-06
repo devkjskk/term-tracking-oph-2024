@@ -22,12 +22,11 @@ export default function HomePage() {
     queryFn: () => fetchDrafts(),
   });
 
-  console.log('🚀 ~ data:', data);
   return (
     <>
       <Welcome />
       <Divider my={36} />
-      <DraftsTable />
+      <DraftsTable data={data?.payload || []} />
     </>
   );
 }

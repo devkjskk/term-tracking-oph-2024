@@ -6,31 +6,10 @@ import dayjs from 'dayjs';
 import buddhistEra from 'dayjs/plugin/buddhistEra';
 import 'dayjs/locale/th';
 import { useRouter } from 'next/navigation';
+import { ILaw } from '@/types';
 
 dayjs.locale('th');
 dayjs.extend(buddhistEra);
-
-const mock = [
-  {
-    id: 1,
-    name: 'ร่างพระราชบัญญัติยกเลิกคำสั่งหัวหน้าคณะรักษาความสงบแห่งชาติ ที่ 16/2560 เรื่อง การบริหารงานบุคคลของข้าราชการครูและบุคลากรทางการศึกษา ลงวันที่ 21 มีนาคม พุทธศักราช 2560 พ.ศ. ....',
-    state: 'listening_to_comments',
-    created_at: '2024-06-07 00:00:00',
-    disableStates: ['awaiting_agenda_1', 'agenda_1_scheduled'],
-  },
-  {
-    id: 2,
-    name: 'ร่างพระราชบัญญัติยกเลิกคำสั่งหัวหน้าคณะรักษาความสงบแห่งชาติ ที่ 16/2560 เรื่อง การบริหารงานบุคคลของข้าราชการครูและบุคลากรทางการศึกษา ลงวันที่ 21 มีนาคม พุทธศักราช 2560 พ.ศ. ....',
-    state: 'awaiting_agenda_1',
-    created_at: '2024-06-07 00:00:00',
-  },
-  {
-    id: 3,
-    name: 'ร่างพระราชบัญญัติยกเลิกคำสั่งหัวหน้าคณะรักษาความสงบแห่งชาติ ที่ 16/2560 เรื่อง การบริหารงานบุคคลของข้าราชการครูและบุคลากรทางการศึกษา ลงวันที่ 21 มีนาคม พุทธศักราช 2560 พ.ศ. ....',
-    state: 'awaiting_prime_minister_review',
-    created_at: '2024-06-07 00:00:00',
-  },
-];
 
 const stateColors: Record<string, string> = {
   reviewing_list: 'main-red',
@@ -62,14 +41,18 @@ const stateLabels: Record<string, string> = {
   agenda_3_approved: 'วาระ 3 เห็นชอบ',
 };
 
-const DraftsTable = () => {
+interface DraftsTableProps {
+  data: ILaw[];
+}
+
+const DraftsTable = ({ data }: DraftsTableProps) => {
   const router = useRouter();
 
   const handleNavigation = (id: number, state: string) => {
     router.push(`/drafts/${id}/${state}`);
   };
 
-  const rows = mock.map((row) => (
+  const rows = data.map((row) => (
     <Table.Tr key={row.name}>
       <Table.Td>
         <Avatar size={40} radius={40} src={null} color="main-red">
@@ -85,12 +68,12 @@ const DraftsTable = () => {
         </Badge>
       </Table.Td>
       <Table.Td>
-        <Text truncate>{dayjs(row.created_at).format('DD MMM BBBB')}</Text>
+        <Text truncate>{dayjs(row.createdAt).format('DD MMM BBBB')}</Text>
       </Table.Td>
       <Table.Td>
         <ActionIcon
           variant="subtle"
-          onClick={() => handleNavigation(row.id, row.state)}
+          onClick={() => handleNavigation(Number(row.id), row.state)}
           color="main-red"
         >
           <IconChevronRight />
