@@ -11,20 +11,28 @@ import {
   IconBan,
   IconTournament,
 } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
 import classes from './Welcome.module.css';
 // import { useSetState } from '@mantine/hooks';
 import { Card } from './Card/Card';
 
+import axiosInstance from '@/lib/axios';
+
 export function Welcome() {
+  const fetchDrafts = async (): Promise<any> => {
+    const res = await axiosInstance.get('/state-logs/summary', {
+      params: {},
+    });
+    return res.data;
+  };
+
+  const { data } = useQuery<any>({
+    queryKey: ['drafts'],
+    queryFn: () => fetchDrafts(),
+  });
+
   return (
     <div className={classes.bgWelCome}>
-      <Title className={classes.title} ta="center" mt={50}>
-        Welcome to{' '}
-        <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
-          constitution
-        </Text>
-      </Title>
-
       <Grid grow gutter="md" m={{ base: 15, md: 25 }}>
         <Grid.Col span={{ base: 12, md: 4 }}>
           <Card
@@ -52,7 +60,7 @@ export function Welcome() {
           >
             <Card
               topic="กำลังรับฟังความเห็น"
-              number={1}
+              number={2}
               bgColor="#CD5C5C"
               colorBorder="#CD5C5C"
               colorFont="white"
@@ -70,8 +78,8 @@ export function Welcome() {
           <Grid grow gutter="md" mt={15}>
             <Grid.Col span={{ base: 12, md: 4 }}>
               <Card
-                topic="นายกตรวจสอบ ร่างการเงิน"
-                number={0}
+                topic="นายกตรวจสอบ ร่างการเงิน (ตรวจสอบ)"
+                number={41}
                 bgColor="#FFA500"
                 colorBorder="#FFA500"
                 colorFont="white"
@@ -90,16 +98,16 @@ export function Welcome() {
         </Grid.Col>
 
         <Grid.Col span={{ base: 12, md: 4 }}>
-          <Grid grow>
+          <Grid>
             <Grid.Col span={{ base: 12 }}>
               <Card
-                topic="รอบรรจุระเบียบวาระการประชุม"
-                number={1}
+                topic="บรรจุระเบียบวาระการประชุม"
+                number={128}
                 bgColor="#a1c4fd"
                 colorBorder="#c2e9fb"
                 colorFont="white"
                 cusTomFontSize="18px"
-                customMinheight="140px"
+                customMinheight="145px"
                 icon={
                   <IconClockPause
                     color="white"
@@ -114,7 +122,7 @@ export function Welcome() {
             <Grid.Col span={{ base: 12, md: 6 }}>
               <Card
                 topic="ประชุมวาระ 1"
-                number={1}
+                number={12}
                 bgColor="#ffc3a0"
                 colorBorder="#ffafbd"
                 colorFont="white"
@@ -133,7 +141,7 @@ export function Welcome() {
             <Grid.Col span={{ base: 12, md: 6 }}>
               <Card
                 topic="ประชุมวาระ 2"
-                number={1}
+                number={12}
                 bgColor="#ffc3a0"
                 colorBorder="#ffafbd"
                 colorFont="white"
@@ -152,7 +160,7 @@ export function Welcome() {
             <Grid.Col span={{ base: 12 }}>
               <Card
                 topic="ประชุมวาระ 3"
-                number={1}
+                number={12}
                 bgColor="#1589FF"
                 colorBorder="#1589FF"
                 colorFont="white"
@@ -171,11 +179,12 @@ export function Welcome() {
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 4 }}>
           <Card
-            topic="ผ่านเป็นกฎหมาย"
-            number={1}
+            topic="รับฟังความเห็นเสร็จสิ้น"
+            number={19}
             bgColor="#22BB33"
             colorBorder="#22BB33"
             colorFont="white"
+            customMinheight="150px"
             icon={
               <IconGavel
                 color="white"
@@ -193,7 +202,7 @@ export function Welcome() {
           >
             <Card
               topic="ปัดตก"
-              number={1}
+              number={15}
               bgColor="darkred"
               colorBorder="darkred"
               colorFont="white"
@@ -216,7 +225,7 @@ export function Welcome() {
           >
             <Card
               topic="ส่งวุฒิสภาพิจารณาต่อ"
-              number={1}
+              number={5}
               bgColor="#7E354D"
               colorBorder="#7E354D"
               colorFont="white"
