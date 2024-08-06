@@ -16,21 +16,11 @@ import classes from './Welcome.module.css';
 // import { useSetState } from '@mantine/hooks';
 import { Card } from './Card/Card';
 
-import axiosInstance from '@/lib/axios';
+interface WelcomeProps {
+  handleCLick: (state: string) => void;
+}
 
-export function Welcome() {
-  const fetchDrafts = async (): Promise<any> => {
-    const res = await axiosInstance.get('/state-logs/summary', {
-      params: {},
-    });
-    return res.data;
-  };
-
-  const { data } = useQuery<any>({
-    queryKey: ['drafts'],
-    queryFn: () => fetchDrafts(),
-  });
-
+export function Welcome({ handleCLick }: WelcomeProps) {
   return (
     <div className={classes.bgWelCome}>
       <Grid grow gutter="md" m={{ base: 15, md: 25 }}>
@@ -52,6 +42,7 @@ export function Welcome() {
                 }}
               />
             }
+            onClick={() => handleCLick('reviewing_list')}
           />
           <div
             style={{

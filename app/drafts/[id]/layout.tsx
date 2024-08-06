@@ -2,8 +2,25 @@
 
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { Box, Button, Container, Divider, Grid, Group, Stack, Text, Title } from '@mantine/core';
-import { IconChevronLeft, IconMail } from '@tabler/icons-react';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Group,
+  Stack,
+  Text,
+  Title,
+} from '@mantine/core';
+import {
+  IconChevronLeft,
+  IconDots,
+  IconDotsVertical,
+  IconEye,
+  IconMail,
+} from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
 import { Timeline } from '@/components';
@@ -67,9 +84,22 @@ const DraftDetailLayouts = ({ children }: { children: React.ReactNode }) => {
           พ.ศ. ....
         </Title>
         <Group justify="end">
-          <Button size="compact-xs" color="main-red" leftSection={<IconMail size={16} />}>
-            ติดตามสถานะ
-          </Button>
+          <Group gap="xs">
+            <Button
+              size="compact-xs"
+              leftSection={<IconEye size={24} />}
+              variant="transparent"
+              color="default"
+            >
+              1
+            </Button>
+            <Button size="compact-xs" color="main-red" leftSection={<IconMail size={16} />}>
+              ติดตามสถานะ
+            </Button>
+            <ActionIcon size="sm" variant="outline" color="gray">
+              <IconDots size={16} />
+            </ActionIcon>
+          </Group>
         </Group>
       </Stack>
       <Divider mt={8} mb={7} color="lightgray" />
