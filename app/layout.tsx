@@ -1,7 +1,15 @@
 import '@mantine/core/styles.css';
 import React from 'react';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
+import dayjs from 'dayjs';
+import buddhistEra from 'dayjs/plugin/buddhistEra';
+import 'dayjs/locale/th';
+
 import { theme } from '../theme';
+import { AppLayout } from '@/layouts/AppLayout';
+
+dayjs.locale('th');
+dayjs.extend(buddhistEra);
 
 export const metadata = {
   title: 'Mantine Next.js template',
@@ -20,7 +28,9 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme} defaultColorScheme="light">
+          <AppLayout>{children}</AppLayout>
+        </MantineProvider>
       </body>
     </html>
   );
