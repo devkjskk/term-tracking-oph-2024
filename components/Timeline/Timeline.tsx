@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Box, Container, Text, Timeline, TimelineItemProps } from '@mantine/core';
+import { Badge, Container, Text, Timeline, TimelineItemProps } from '@mantine/core';
 import { IconCheck, IconDots } from '@tabler/icons-react';
 import { STATE_INDEX } from '@/constants';
 
@@ -81,7 +81,7 @@ const steps = [
     state: 'sent_to_senate_for_review',
     date: '1 month ago',
   },
-  { id: 14, title: 'ปัดตก', state: 'rejected', date: '2 days ago' },
+  // { id: 14, title: 'ปัดตก', state: 'rejected', date: '2 days ago' },
 ] as ISteps[];
 
 const TimelineSection = ({
@@ -91,6 +91,7 @@ const TimelineSection = ({
   stateLogs = [],
   handleClickItem,
 }: TimelineSectionProps) => {
+  console.log('🚀 ~ currentState:', currentState);
   const shouldDisable = (state: string, index?: number) =>
     !stateLogs?.find((step) => step.state === state) && currentState !== index;
   return (
@@ -123,6 +124,12 @@ const TimelineSection = ({
             <Text size="xs" mt={4}>
               {step.date}
             </Text>
+
+            {step.state === 'meeting_agenda_1' && (
+              <Badge mt={4} color="main-red" fw={700} size="lg">
+                ปัดตก
+              </Badge>
+            )}
           </Timeline.Item>
         ))}
       </Timeline>

@@ -56,7 +56,7 @@ const DraftDetailLayouts = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <Container size="lg" py={12}>
+    <Container size="lg">
       <Stack gap="xs">
         <Group>
           <Button
@@ -141,7 +141,7 @@ const DraftDetailLayouts = ({ children }: { children: React.ReactNode }) => {
         <Grid px="lg">
           <Grid.Col span={3} pt={32} style={{ borderRight: '1px solid lightgray' }}>
             <Timeline
-              currentState={STATE_INDEX[lawDetail?.state || 0]}
+              currentState={5}
               selectedState={STATE_INDEX[selectedState || 0]}
               handleClickItem={handleClickItem}
               maxState={STATE_INDEX[lawDetail?.state || 0]}

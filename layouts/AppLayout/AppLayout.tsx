@@ -11,7 +11,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Header />
-      <Box mah="calc(100dvh - 56px)" style={{ overflow: 'hidden' }}>
+      <Box
+        mah="100vh"
+        style={{
+          marginTop: '80px',
+        }}
+      >
         {children}
       </Box>
     </QueryClientProvider>
